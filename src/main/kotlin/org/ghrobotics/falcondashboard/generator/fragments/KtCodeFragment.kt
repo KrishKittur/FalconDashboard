@@ -51,12 +51,12 @@ class KtCodeFragment : Fragment() {
                 val dm = DecimalFormat("##.###")
 
 //                append("val $name = DefaultTrajectoryGenerator.generateTrajectory(\n")
-                append("wayPoints = listOf(\n")
+                append("wayPoints = List.of(\n")
                 GeneratorView.waypoints.forEach {
                     append(
-                        "    Pose2d(${dm.format(it.translation.x_u.inFeet())}.feet, " +
-                                "${dm.format(it.translation.y_u.inFeet())}.feet, " +
-                                "${dm.format(it.rotation.degrees)}.degrees)"
+                        "    new Pose2d(Units.feetToMeters(${dm.format(it.translation.x_u.inFeet())}), " +
+                                "Units.feetToMeters(${dm.format(it.translation.y_u.inFeet())}), " +
+                                "Rotation2d.fromDegrees(${dm.format(it.rotation.degrees)}))"
                     )
                     if (it != GeneratorView.waypoints.last()) append(",")
                     append("\n")
